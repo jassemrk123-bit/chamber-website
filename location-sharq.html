@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharq Executive Tower | Chamber Of Business</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { brand: { 50: '#f0f9ff', 500: '#3b82f6', 900: '#0f172a', 950: '#020617' } } }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; cursor: none; background-color: #ffffff; overflow-x: hidden; }
+        .cursor-dot, .cursor-outline { position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 9999; pointer-events: none; }
+        .cursor-dot { width: 8px; height: 8px; background-color: #3b82f6; }
+        .cursor-outline { width: 40px; height: 40px; border: 2px solid rgba(59, 130, 246, 0.5); transition: width 0.2s, height 0.2s, background-color 0.2s; }
+        .gsap-reveal { visibility: hidden; }
+    </style>
+</head>
+<body class="text-brand-950 antialiased selection:bg-brand-500 selection:text-white">
+
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <nav class="fixed top-0 w-full z-50 p-6 mix-blend-difference text-white pointer-events-none">
+        <a href="index.html" class="hover-trigger inline-flex items-center space-x-3 pointer-events-auto group">
+            <div class="bg-white/10 backdrop-blur-md p-3 rounded-full group-hover:bg-brand-500 transition-colors"><i class="fa-solid fa-arrow-left"></i></div>
+            <span class="font-bold tracking-widest uppercase text-sm">Back to Home</span>
+        </a>
+    </nav>
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        <div class="w-full lg:w-1/2 flex flex-col justify-center p-8 sm:p-16 lg:p-24 bg-slate-50 pt-32 lg:pt-24">
+            <div class="gsap-reveal mb-4">
+                <span class="inline-block bg-brand-100 text-brand-600 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4">Premium Location</span>
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tighter text-brand-950 mb-6 leading-tight">Sharq Executive Tower</h1>
+                <p class="text-slate-500 text-lg md:text-xl font-light mb-10 leading-relaxed">
+                    Situated in the financial heart of Kuwait, this location offers panoramic views of the Arabian Gulf, private executive elevators, and a hyper-professional environment tailored for global trading firms and corporate headquarters.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-6 mb-12 gsap-reveal">
+                <div class="border border-slate-200 p-6 rounded-2xl bg-white">
+                    <i class="fa-solid fa-building-shield text-brand-500 text-2xl mb-3"></i>
+                    <h3 class="font-bold text-brand-950 mb-1">High Security</h3>
+                    <p class="text-xs text-slate-500">Biometric access controls.</p>
+                </div>
+                <div class="border border-slate-200 p-6 rounded-2xl bg-white">
+                    <i class="fa-solid fa-mug-hot text-brand-500 text-2xl mb-3"></i>
+                    <h3 class="font-bold text-brand-950 mb-1">Executive Cafe</h3>
+                    <p class="text-xs text-slate-500">On-site barista for your clients.</p>
+                </div>
+            </div>
+            <div class="gsap-reveal">
+                <a href="book.html" class="hover-trigger inline-block bg-brand-950 text-white font-bold px-10 py-5 rounded-xl hover:bg-brand-500 transition-all duration-300 transform hover:-translate-y-1">Book a Tour Here</a>
+            </div>
+        </div>
+        <div class="w-full lg:w-1/2 min-h-[50vh] lg:min-h-screen relative p-4">
+            <div class="w-full h-full rounded-3xl overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover" alt="Sharq View">
+                <div class="absolute inset-0 bg-brand-950/20"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const dot = document.getElementById("cursor-dot"), outline = document.getElementById("cursor-outline");
+            window.addEventListener("mousemove", (e) => { dot.style.left = `${e.clientX}px`; dot.style.top = `${e.clientY}px`; outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" }); });
+            document.querySelectorAll(".hover-trigger, a, button").forEach(trigger => {
+                trigger.addEventListener("mouseenter", () => { outline.style.width = "60px"; outline.style.height = "60px"; outline.style.backgroundColor = "rgba(59, 130, 246, 0.1)"; outline.style.borderColor = "rgba(59, 130, 246, 1)"; });
+                trigger.addEventListener("mouseleave", () => { outline.style.width = "40px"; outline.style.height = "40px"; outline.style.backgroundColor = "transparent"; outline.style.borderColor = "rgba(59, 130, 246, 0.5)"; });
+            });
+            gsap.set(".gsap-reveal", { visibility: "visible" });
+            gsap.from(".gsap-reveal", { y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2 });
+        });
+    </script>
+</body>
+</html>
