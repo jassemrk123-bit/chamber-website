@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve Access | Chamber Of Business</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#d97706', /* Amber */
+                            800: '#292524',
+                            900: '#1c1917', /* Stone Dark */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            cursor: none; 
+            background-color: #1c1917; 
+        }
+
+        /* Custom Cursor */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; z-index: 9999; pointer-events: none;
+        }
+        .cursor-dot { width: 8px; height: 8px; background-color: #d97706; }
+        .cursor-outline {
+            width: 40px; height: 40px; border: 2px solid rgba(217, 119, 6, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* Custom Input Styling */
+        input:focus, textarea:focus {
+            box-shadow: 0 0 15px rgba(217, 119, 6, 0.2);
+        }
+
+        .gsap-reveal { visibility: hidden; }
+    </style>
+</head>
+<body class="text-white antialiased min-h-screen flex selection:bg-brand-500 selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <div class="flex w-full min-h-screen">
+        
+        <!-- Left Side: Visual / Ambient (Hidden on small mobile) -->
+        <div class="hidden lg:flex w-1/2 relative flex-col justify-between p-16 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-r from-brand-900 via-brand-900/80 to-transparent z-10"></div>
+                <img src="https://images.unsplash.com/photo-1497215898147-5dd40bce3b0f?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover grayscale opacity-50" alt="Workspace">
+            </div>
+            
+            <div class="relative z-10">
+                <a href="index.html" class="hover-trigger flex items-center space-x-3 text-white w-max group">
+                    <div class="bg-brand-500/20 text-brand-500 p-2 rounded-lg transition-transform group-hover:-translate-x-1"><i class="fa-solid fa-arrow-left"></i></div>
+                    <span class="font-bold tracking-widest uppercase text-sm">Return Home</span>
+                </a>
+            </div>
+
+            <div class="relative z-10 gsap-reveal">
+                <h1 class="text-6xl font-extrabold tracking-tighter mb-6 leading-tight">
+                    Secure Your <br><span class="text-brand-500">Premium Space.</span>
+                </h1>
+                <p class="text-stone-400 text-xl font-light max-w-md">
+                    Schedule a private tour of Chamber Of Business and discover the environment that will elevate your company's growth.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Side: The Form -->
+        <div class="w-full lg:w-1/2 bg-stone-950 flex items-center justify-center p-8 sm:p-16 relative">
+            
+            <!-- Abstract Glow -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="w-full max-w-md relative z-10 gsap-reveal">
+                
+                <!-- Mobile Only Back Button -->
+                <a href="index.html" class="lg:hidden hover-trigger inline-flex items-center space-x-2 text-brand-500 mb-8 font-bold text-sm tracking-wider uppercase">
+                    <i class="fa-solid fa-arrow-left"></i> <span>Back to Home</span>
+                </a>
+
+                <h2 class="text-3xl font-bold mb-8">Tour Reservation Details</h2>
+
+                <!-- WEB3FORMS INTEGRATION -->
+                <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6 hover-trigger-container">
+                    
+                    <!-- REPLACE THIS VALUE WITH YOUR WEB3FORMS ACCESS KEY -->
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="New Chamber Tour Booking!">
+                    <input type="hidden" name="redirect" value="https://web3forms.com/success">
+
+                    <!-- Custom Radio Date Selector -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-stone-500 mb-3">Select Timeline</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="timeline" value="This Week" class="peer sr-only" required>
+                                <div class="border border-stone-800 bg-brand-900 p-4 rounded-xl text-center text-sm font-semibold text-stone-400 peer-checked:bg-brand-500 peer-checked:text-white peer-checked:border-brand-500 transition-all">
+                                    This Week
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="timeline" value="Next Week" class="peer sr-only">
+                                <div class="border border-stone-800 bg-brand-900 p-4 rounded-xl text-center text-sm font-semibold text-stone-400 peer-checked:bg-brand-500 peer-checked:text-white peer-checked:border-brand-500 transition-all">
+                                    Next Week
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="timeline" value="Next Month" class="peer sr-only">
+                                <div class="border border-stone-800 bg-brand-900 p-4 rounded-xl text-center text-sm font-semibold text-stone-400 peer-checked:bg-brand-500 peer-checked:text-white peer-checked:border-brand-500 transition-all">
+                                    Next Month
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Text Inputs -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-stone-500 mb-2">Full Name</label>
+                            <input type="text" name="full_name" required class="w-full bg-brand-900 border border-stone-800 rounded-xl p-4 text-white placeholder-stone-600 focus:outline-none focus:border-brand-500 transition-colors" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-stone-500 mb-2">Business Email</label>
+                            <input type="email" name="email" required class="w-full bg-brand-900 border border-stone-800 rounded-xl p-4 text-white placeholder-stone-600 focus:outline-none focus:border-brand-500 transition-colors" placeholder="john@company.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-stone-500 mb-2">Phone Number (Optional)</label>
+                            <input type="tel" name="phone" class="w-full bg-brand-900 border border-stone-800 rounded-xl p-4 text-white placeholder-stone-600 focus:outline-none focus:border-brand-500 transition-colors" placeholder="+965 ...">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full hover-trigger bg-white text-brand-900 font-extrabold text-lg py-5 rounded-xl hover:bg-brand-500 hover:text-white hover:shadow-[0_0_30px_rgba(217,119,6,0.3)] transition-all duration-300 transform hover:-translate-y-1 mt-4">
+                        Confirm Reservation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Custom Cursor Logic
+            const dot = document.getElementById("cursor-dot");
+            const outline = document.getElementById("cursor-outline");
+            const hoverTriggers = document.querySelectorAll(".hover-trigger, input, button, label");
+
+            window.addEventListener("mousemove", (e) => {
+                dot.style.left = `${e.clientX}px`;
+                dot.style.top = `${e.clientY}px`;
+                outline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
+            });
+
+            hoverTriggers.forEach(trigger => {
+                trigger.addEventListener("mouseenter", () => {
+                    outline.style.width = "60px"; outline.style.height = "60px";
+                    outline.style.backgroundColor = "rgba(217, 119, 6, 0.1)";
+                });
+                trigger.addEventListener("mouseleave", () => {
+                    outline.style.width = "40px"; outline.style.height = "40px";
+                    outline.style.backgroundColor = "transparent";
+                });
+            });
+
+            // GSAP Reveal
+            gsap.set(".gsap-reveal", { visibility: "visible" });
+            gsap.from(".gsap-reveal", {
+                y: 50, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.3
+            });
+        });
+    </script>
+</body>
+</html>
